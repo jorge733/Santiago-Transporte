@@ -1,0 +1,17 @@
+{
+  "name": "santiago-transporte",
+  "version": "0.1.0",
+  "private": true,
+  "description": "PWA con información del transporte público de Santiago de Chile",
+  "type": "module",
+  "scripts": {
+    "dev": "node scripts/dev-server.mjs",
+    "build:gtfs": "node scripts/build-gtfs.mjs"
+  },
+  "devDependencies": {
+    "fflate": "^0.8.2"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

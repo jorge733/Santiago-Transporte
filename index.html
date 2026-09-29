@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Santiago Transporte</title>
+  <meta name="description" content="Buses en tiempo real, paraderos cercanos y estado de Metro en Santiago de Chile.">
+  <meta name="theme-color" content="#c8102e">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="icon" href="/icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/icons/icon-192.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <h1>Santiago Transporte</h1>
+    <button id="install" class="btn-small" hidden>Instalar</button>
+  </header>
+  <div id="offline" class="banner" hidden>Sin conexión: se muestran los últimos datos guardados.</div>
+
+  <main>
+    <!-- Paradero -->
+    <section id="view-paradero" class="view" hidden>
+      <form id="search-form" class="search" autocomplete="off">
+        <input id="search" type="search" placeholder="Código (PA1) o nombre del paradero" aria-label="Buscar paradero">
+        <button type="submit">Buscar</button>
+      </form>
+      <div id="favorites" class="chips"></div>
+      <ul id="search-results" class="list"></ul>
+      <div id="stop"></div>
+    </section>
+
+    <!-- Cerca -->
+    <section id="view-cerca" class="view" hidden>
+      <button id="locate" class="btn-primary">📍 Buscar paraderos cerca de mí</button>
+      <div id="map" class="map"></div>
+      <ul id="nearby" class="list"></ul>
+    </section>
+
+    <!-- Metro -->
+    <section id="view-metro" class="view" hidden>
+      <div class="section-head">
+        <h2>Estado de Metro</h2>
+        <button id="metro-refresh" class="btn-small">Actualizar</button>
+      </div>
+      <div id="metro"></div>
+    </section>
+  </main>
+
+  <nav class="tabbar">
+    <a href="#paradero" data-tab="paradero"><span aria-hidden="true">🚏</span>Paradero</a>
+    <a href="#cerca" data-tab="cerca"><span aria-hidden="true">📍</span>Cerca</a>
+    <a href="#metro" data-tab="metro"><span aria-hidden="true">🚇</span>Metro</a>
+  </nav>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin="" defer></script>
+  <script src="/app.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+{
+  "fuente": "https://files.mobilitydatabase.org/mdb-3357/latest.zip",
+  "vigencia": {
+    "desde": "20260704",
+    "hasta": "20261231",
+    "version": "V166.20260704"
+  },
+  "paraderos": 12138,
+  "recorridos": 418
+}
