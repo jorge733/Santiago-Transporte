@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Santiago Transporte</title>
   <meta name="description" content="Buses en tiempo real, paraderos cercanos y estado de Metro en Santiago de Chile.">
-  <meta name="theme-color" content="#c8102e">
+  <meta name="theme-color" content="#d7132f">
   <link rel="manifest" href="/manifest.webmanifest">
   <link rel="icon" href="/icons/icon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/icons/icon-192.png">
@@ -15,45 +15,78 @@
   <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
+  <!-- Íconos reutilizables -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="i-bus" viewBox="0 0 24 24"><path d="M6 17V6a3 3 0 0 1 3-3h6a3 3 0 0 1 3 3v11M6 17h12M6 17v2m12-2v2M6 11h12M9 14h.01M15 14h.01"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></symbol>
+    <symbol id="i-metro" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="14" rx="4"/><path d="M5 11h14M9 14h.01M15 14h.01M8 21l2-4m6 4-2-4"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
+    <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2L12 17.3 6.4 20.2l1.1-6.2L3 9.6l6.2-.9z"/></symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 11a8 8 0 1 0-2.3 5.7M20 4v7h-7"/></symbol>
+    <symbol id="i-back" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></symbol>
+    <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+    <symbol id="i-locate" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="8"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3 2 20h20L12 3z"/><path d="M12 10v4m0 3h.01"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11m-5-5 5 5 5-5M5 20h14"/></symbol>
+  </svg>
+
   <header class="topbar">
-    <h1>Santiago Transporte</h1>
-    <button id="install" class="btn-small" hidden>Instalar</button>
+    <div class="brand">
+      <img src="/icons/icon.svg" alt="" width="32" height="32">
+      <div>
+        <h1>Santiago Transporte</h1>
+        <p id="subtitle">Buses, paraderos y Metro</p>
+      </div>
+    </div>
+    <button id="install" class="btn-ghost" hidden><svg class="i"><use href="#i-download"/></svg>Instalar</button>
   </header>
-  <div id="offline" class="banner" hidden>Sin conexión: se muestran los últimos datos guardados.</div>
+  <div id="offline" class="banner" hidden><svg class="i"><use href="#i-alert"/></svg>Sin conexión: se muestran los últimos datos guardados.</div>
 
   <main>
     <!-- Paradero -->
     <section id="view-paradero" class="view" hidden>
-      <form id="search-form" class="search" autocomplete="off">
-        <input id="search" type="search" placeholder="Código (PA1) o nombre del paradero" aria-label="Buscar paradero">
-        <button type="submit">Buscar</button>
+      <form id="search-form" class="search" autocomplete="off" role="search">
+        <svg class="i"><use href="#i-search"/></svg>
+        <input id="search" type="search" enterkeyhint="search" placeholder="Código (PA1) o nombre del paradero" aria-label="Buscar paradero">
       </form>
-      <div id="favorites" class="chips"></div>
       <ul id="search-results" class="list"></ul>
+      <div id="home"></div>
       <div id="stop"></div>
     </section>
 
     <!-- Cerca -->
     <section id="view-cerca" class="view" hidden>
-      <button id="locate" class="btn-primary">📍 Buscar paraderos cerca de mí</button>
+      <div class="hero" id="cerca-hero">
+        <div class="hero-icon"><svg class="i"><use href="#i-pin"/></svg></div>
+        <h2>Paraderos cerca de ti</h2>
+        <p class="muted">Usa tu ubicación para ver los paraderos más cercanos y los recorridos que pasan por ellos.</p>
+        <button id="locate" class="btn-primary"><svg class="i"><use href="#i-locate"/></svg>Usar mi ubicación</button>
+      </div>
       <div id="map" class="map"></div>
+      <div id="nearby-head" class="section-head" hidden>
+        <h2>Más cercanos</h2>
+        <button id="relocate" class="btn-ghost small"><svg class="i"><use href="#i-locate"/></svg>Actualizar</button>
+      </div>
       <ul id="nearby" class="list"></ul>
     </section>
 
     <!-- Metro -->
     <section id="view-metro" class="view" hidden>
       <div class="section-head">
-        <h2>Estado de Metro</h2>
-        <button id="metro-refresh" class="btn-small">Actualizar</button>
+        <h2>Red de Metro</h2>
+        <button id="metro-refresh" class="btn-ghost small"><svg class="i"><use href="#i-refresh"/></svg>Actualizar</button>
       </div>
       <div id="metro"></div>
     </section>
   </main>
 
-  <nav class="tabbar">
-    <a href="#paradero" data-tab="paradero"><span aria-hidden="true">🚏</span>Paradero</a>
-    <a href="#cerca" data-tab="cerca"><span aria-hidden="true">📍</span>Cerca</a>
-    <a href="#metro" data-tab="metro"><span aria-hidden="true">🚇</span>Metro</a>
+  <nav class="tabbar" aria-label="Secciones">
+    <a href="#paradero" data-tab="paradero"><svg class="i"><use href="#i-bus"/></svg>Paradero</a>
+    <a href="#cerca" data-tab="cerca"><svg class="i"><use href="#i-pin"/></svg>Cerca</a>
+    <a href="#metro" data-tab="metro"><svg class="i"><use href="#i-metro"/></svg>Metro</a>
   </nav>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin="" defer></script>

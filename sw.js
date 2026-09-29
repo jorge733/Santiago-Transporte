@@ -1,6 +1,6 @@
 // Service worker: la app funciona sin conexión mostrando los últimos datos guardados.
 // Cambia VERSION cada vez que modifiques index.html, styles.css o app.js.
-const VERSION = 'v1';
+const VERSION = 'v2';
 const SHELL = `shell-${VERSION}`;
 const RUNTIME = 'runtime';
 
