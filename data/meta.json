@@ -1,10 +1,10 @@
 {
-  "fuente": "https://files.mobilitydatabase.org/mdb-3357/latest.zip",
+  "fuente": "https://www.dtpm.cl/descargas/gtfs/GTFS_20261003.zip",
   "vigencia": {
-    "desde": "20260704",
+    "desde": "20261003",
     "hasta": "20261231",
-    "version": "V166.20260704"
+    "version": "V168.20261003"
   },
-  "paraderos": 12138,
-  "recorridos": 418
+  "paraderos": 12151,
+  "recorridos": 419
 }
