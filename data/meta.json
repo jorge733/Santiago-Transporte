@@ -1,10 +1,10 @@
 {
-  "fuente": "https://www.dtpm.cl/descargas/gtfs/GTFS_20261003.zip",
+  "fuente": "https://www.dtpm.cl/descargas/gtfs/GTFS_20261114_v2.zip",
   "vigencia": {
-    "desde": "20261003",
+    "desde": "20261114",
     "hasta": "20261231",
-    "version": "V168.20261003"
+    "version": "V171.20261114"
   },
-  "paraderos": 12151,
-  "recorridos": 419
+  "paraderos": 12181,
+  "recorridos": 416
 }
